@@ -15,6 +15,7 @@ MAPPINGS = {
         'Address 1 - Region': '都道府県',
         'Address 1 - Postal Code': '郵便番号',
         'Phone 1 - Value': '電話番号'
+        'E-mail 1 - Value': 'メールアドレス'  # 追加
     },
     'shopify': {
         'Default Address Company': '会社名',
@@ -25,6 +26,7 @@ MAPPINGS = {
         'Default Address Province Code': '都道府県',
         'Default Address Zip': '郵便番号',
         'Default Address Phone': '電話番号'
+        'Email': 'メールアドレス'  # 追加
     },
     'sent': {
         '会社名': '会社名',
@@ -33,6 +35,7 @@ MAPPINGS = {
         '郵便番号': '郵便番号',
         '住所１列目': '番地',
         '住所２列目': '市区町村'
+        'メール': 'メールアドレス'  # 追加
     }
 }
 
