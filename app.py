@@ -14,8 +14,8 @@ MAPPINGS = {
         'Address 1 - City': '市区町村',
         'Address 1 - Region': '都道府県',
         'Address 1 - Postal Code': '郵便番号',
-        'Phone 1 - Value': '電話番号'
-        'E-mail 1 - Value': 'メールアドレス'  # 追加
+        'Phone 1 - Value': '電話番号',
+        'E-mail 1 - Value': 'メールアドレス'
     },
     'shopify': {
         'Default Address Company': '会社名',
@@ -25,8 +25,8 @@ MAPPINGS = {
         'Default Address City': '市区町村',
         'Default Address Province Code': '都道府県',
         'Default Address Zip': '郵便番号',
-        'Default Address Phone': '電話番号'
-        'Email': 'メールアドレス'  # 追加
+        'Default Address Phone': '電話番号',
+        'Email': 'メールアドレス'
     },
     'sent': {
         '会社名': '会社名',
@@ -34,16 +34,26 @@ MAPPINGS = {
         'お名前（敬称省略）': '氏名(姓)',
         '郵便番号': '郵便番号',
         '住所１列目': '番地',
-        '住所２列目': '市区町村'
-        'メール': 'メールアドレス'  # 追加
+        '住所２列目': '市区町村',
+        'メール': 'メールアドレス'
     }
 }
 
 def clean_data(df, category, mode):
     mapping = MAPPINGS.get(mode, MAPPINGS['google'])
     extracted = pd.DataFrame()
+    
+    # 必要な列の抽出と名前変更
     for col_key, new_name in mapping.items():
         extracted[new_name] = df[col_key] if col_key in df.columns else ""
+    
+    # 全体的な空白削除
+    extracted = extracted.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
+    
+    # メールアドレスの小文字統一
+    if 'メールアドレス' in extracted.columns:
+        extracted['メールアドレス'] = extracted['メールアドレス'].str.lower()
+    
     extracted['区分'] = category
     return extracted
 
